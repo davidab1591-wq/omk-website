@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Franchise partner application · Ondu Motteya Kathe</title>
+<meta name="description" content="Apply to become an Ondu Motteya Kathe (OMK) franchise partner. Crack · Cook · Chuckle.">
+<meta property="og:title" content="Become an OMK franchise partner">
+<meta property="og:description" content="Building a business. Carrying forward a story. Apply to open an Ondu Motteya Kathe outlet.">
+<meta property="og:image" content="icon.png">
+<meta name="theme-color" content="#FDBD03">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Noto+Sans+Kannada:wght@500;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="siteHeader" class="bar"></header>
+
+<!-- ============ LANDING ============ -->
+<main id="landing">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="kicker">Franchise partner application</span>
+        <h1>Let's build the next OMK story.</h1>
+        <p class="tag">Building a business. Carrying forward a story.</p>
+        <p>Thank you for your interest in becoming an OMK franchise partner. We are looking for committed partners who believe in our food, respect people and animals, and are prepared to build a sustainable business through consistent effort.</p>
+        <p>Profitability is an important shared goal. However, restaurant ownership also requires patience, daily accountability and financial preparation. We seek partners who will protect OMK's quality and trust through both busy days and challenging months.</p>
+        <div class="cta">
+          <a class="btn btn-dark" href="#apply">Start your application →</a>
+          <span class="small">5 short sections · about 30–40 minutes · your answers are saved on this device as you go</span>
+        </div>
+      </div>
+      <img class="logo" src="logo.png" alt="">
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <h2>Who we're looking for</h2>
+      <p class="lead">For committed partners who value quality, people and long-term growth.</p>
+      <div class="grid3">
+        <div class="tile"><div class="ic">1</div><h3>Believe in our food</h3><p>You love what OMK serves and will protect our recipes, suppliers and standards — every single day.</p></div>
+        <div class="tile"><div class="ic">2</div><h3>Respect people &amp; animals</h3><p>Timely salaries, fair treatment of staff and delivery partners, responsible packaging, and kindness towards animals.</p></div>
+        <div class="tile"><div class="ic">3</div><h3>Build for the long term</h3><p>You're prepared to be accountable, to stay patient through slow months, and to grow the outlet through consistent effort.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0">
+    <div class="wrap">
+      <div class="note-box">
+        <h3 style="font-size:22px">Before you apply</h3>
+        <ul>
+          <li>Total investment budget (franchise fee + setup + initial operating funds) is typically in the <b>₹20–50 lakh</b> range.</li>
+          <li>Sales, profits and investment recovery timelines are <b>not guaranteed</b> — plan reserves for a slow start.</li>
+          <li>Someone accountable must run daily operations and complete practical training before opening.</li>
+          <li>Please disclose all proposed partners and investors in your application.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0">
+    <div class="wrap">
+      <h2>How selection works</h2>
+      <p class="lead">Submitting an application does not guarantee approval. Each stage is separate.</p>
+      <ol class="steps">
+        <li><b>Application</b><span>Tell us about you, your plans and your outlet.</span></li>
+        <li><b>Interview</b><span>A conversation with the OMK team.</span></li>
+        <li><b>Assessment</b><span>Practical assessment, references and funding verification — with your consent.</span></li>
+        <li><b>Site approval</b><span>We review and approve the proposed location.</span></li>
+        <li><b>Opening approval</b><span>Training complete, standards met — let's open.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div><h2>Ready to carry the story forward?</h2><p>Crack · Cook · Chuckle</p></div>
+      <a class="btn btn-y" href="#apply">Start your application →</a>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FORM ============ -->
+<main id="formView" class="hidden">
+  <div class="formwrap">
+    <form id="appForm" novalidate>
+      <div class="progress" aria-hidden="true"><i id="prog"></i></div>
+      <h1 class="f-title" id="secTitle"></h1>
+      <p class="f-sub" id="secSub"></p>
+      <div class="sectag" id="secTag"></div>
+      <div id="fields"></div>
+      <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" id="company_website" tabindex="-1" autocomplete="off"></label></div>
+      <div id="formErr" class="alert hidden" role="alert"></div>
+      <div class="nav">
+        <button type="button" class="btn btn-line" id="backBtn">Back</button>
+        <button type="submit" class="btn btn-y" id="nextBtn">Next</button>
+        <span class="saved" id="saved"></span>
+      </div>
+    </form>
+  </div>
+</main>
+
+<main id="doneView" class="hidden">
+  <div class="done">
+    <img src="logo.png" alt="">
+    <h1>Thank you!</h1>
+    <p>Your application has been received. The OMK team will review it and contact you on the mobile number or email you shared.</p>
+    <p style="color:var(--muted)">Reference: <b id="refNo"></b></p>
+    <a class="btn btn-dark" href="#" id="doneHome">Back to the franchise page</a> <a class="btn btn-line" href="index.html">OMK home</a>
+  </div>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="site.js"></script>
+<script src="questions.js"></script>
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const S = OMK.SECTIONS, DRAFT = 'omk-franchise-draft-v1';
+  let step = 0, started = Date.now(), A = {}, hadDraft = false;
+
+  // ---- draft on this device ----
+  try { const d = JSON.parse(localStorage.getItem(DRAFT) || 'null'); if (d && d.a) { A = d.a; hadDraft = true; step = Math.min(d.step || 0, S.length - 1); } } catch (e) {}
+  let saveT;
+  function saveDraft() {
+    clearTimeout(saveT);
+    saveT = setTimeout(() => { try { localStorage.setItem(DRAFT, JSON.stringify({ a: A, step })); $('saved').textContent = 'Saved on this device'; } catch (e) {} }, 400);
+  }
+  if (!A.sign_date) A.sign_date = new Date(Date.now() - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+
+  // ---- views ----
+  function route() {
+    const h = location.hash;
+    $('landing').classList.toggle('hidden', h === '#apply' || h === '#done');
+    $('formView').classList.toggle('hidden', h !== '#apply');
+    $('doneView').classList.toggle('hidden', h !== '#done');
+    if (h === '#apply') { renderStep(); }
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  $('doneHome').onclick = (e) => { e.preventDefault(); history.pushState('', '', location.pathname); route(); };
+
+  // ---- fields ----
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  function fieldHtml(f) {
+    const req = f.req ? '<span class="req" aria-hidden="true">*</span>' : '';
+    const help = f.help ? `<p class="help" id="h_${f.id}">${esc(f.help)}</p>` : '';
+    const v = A[f.id];
+    let input = '';
+    if (f.type === 'long') {
+      input = `<textarea id="f_${f.id}" rows="${f.rows || 5}" maxlength="4000" placeholder="Your answer" ${f.help ? `aria-describedby="h_${f.id}"` : ''}>${esc(v || '')}</textarea><div class="cnt" id="c_${f.id}"></div>`;
+    } else if (f.type === 'radio' || f.type === 'check' || f.type === 'ack') {
+      const t = f.type === 'radio' ? 'radio' : 'checkbox', sel = Array.isArray(v) ? v : (v ? [v] : []);
+      input = `<div role="group" aria-labelledby="l_${f.id}">` + f.options.map((o, i) =>
+        `<label class="opt"><input type="${t}" name="${f.id}" value="${esc(o)}" ${sel.includes(o) ? 'checked' : ''}><span>${esc(o)}</span></label>`).join('') + '</div>';
+    } else {
+      const type = f.type === 'tel' ? 'tel' : f.type === 'email' ? 'email' : f.type === 'date' ? 'date' : 'text';
+      input = `<input type="${type}" id="f_${f.id}" value="${esc(v || '')}" maxlength="300" placeholder="Your answer" ${f.auto ? `autocomplete="${f.auto}"` : ''} ${f.mode || f.type === 'tel' ? `inputmode="${f.mode || 'tel'}"` : ''}>`;
+    }
+    const lab = (f.type === 'radio' || f.type === 'check' || f.type === 'ack') ? `<span class="t" id="l_${f.id}">${esc(f.label)}${req}</span>` : `<label class="t" for="f_${f.id}" id="l_${f.id}">${esc(f.label)}${req}</label>`;
+    return `<div class="q" id="q_${f.id}">${lab}${help}${input}<div class="emsg" id="e_${f.id}">This question is required.</div></div>`;
+  }
+  function read(f) {
+    if (f.type === 'radio') { const x = document.querySelector(`input[name="${f.id}"]:checked`); return x ? x.value : ''; }
+    if (f.type === 'check' || f.type === 'ack') return [...document.querySelectorAll(`input[name="${f.id}"]:checked`)].map(x => x.value);
+    const el = $('f_' + f.id); return el ? el.value.trim() : '';
+  }
+  function renderStep() {
+    const sec = S[step];
+    $('secTitle').textContent = sec.title; $('secSub').textContent = sec.sub;
+    $('secTag').textContent = `Section ${step + 1} of ${S.length} • ${sec.tag}`;
+    $('prog').style.width = `${(step + 1) / S.length * 100}%`;
+    $('fields').innerHTML = sec.fields.map(fieldHtml).join('');
+    $('backBtn').textContent = 'Back';
+    $('nextBtn').textContent = step === S.length - 1 ? 'Submit application' : 'Next';
+    $('formErr').classList.add('hidden');
+    sec.fields.forEach(f => {
+      const upd = () => { A[f.id] = read(f); saveDraft(); const q = $('q_' + f.id); if (q.classList.contains('err')) check(f); if (f.type === 'long') count(f); };
+      $('q_' + f.id).addEventListener('input', upd); $('q_' + f.id).addEventListener('change', upd);
+      if (f.type === 'long') count(f);
+    });
+  }
+  function count(f) { const el = $('f_' + f.id), c = $('c_' + f.id); if (el && c) c.textContent = el.value.length > 3500 ? `${el.value.length} / 4000` : ''; }
+  function check(f) {
+    const v = read(f), q = $('q_' + f.id), e = $('e_' + f.id); let msg = '';
+    const empty = Array.isArray(v) ? v.length === 0 : !v;
+    if (f.req && empty) msg = 'This question is required.';
+    if (!msg && f.type === 'ack' && v.length < f.options.length) msg = 'Please tick every statement to continue.';
+    if (!msg && f.id === 'mobile' && v && v.replace(/\D/g, '').length < 10) msg = 'Please enter a valid mobile number.';
+    if (!msg && f.id === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) msg = 'Please enter a valid email address.';
+    if (!msg && f.id === 'budget_amount' && !v && A.budget === 'Other') msg = 'Please specify your budget, since you picked “Other”.';
+    if (!msg && f.type === 'long' && f.req && v.length < 15) msg = 'Please write a little more (at least a sentence).';
+    q.classList.toggle('err', !!msg); e.textContent = msg || 'This question is required.';
+    return !msg;
+  }
+
+  $('backBtn').onclick = () => { if (step === 0) { history.pushState('', '', location.pathname); route(); return; } step--; saveDraft(); renderStep(); window.scrollTo(0, 0); };
+  $('appForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const sec = S[step]; sec.fields.forEach(f => A[f.id] = read(f));
+    const bad = sec.fields.filter(f => !check(f));
+    if (bad.length) { const q = $('q_' + bad[0].id); q.scrollIntoView({ behavior: 'smooth', block: 'center' }); const i = q.querySelector('input,textarea'); i && i.focus({ preventScroll: true }); return; }
+    if (step < S.length - 1) { step++; saveDraft(); renderStep(); window.scrollTo(0, 0); return; }
+    await submit();
+  });
+
+  async function submit() {
+    const btn = $('nextBtn'); btn.disabled = true; btn.textContent = 'Submitting…'; $('formErr').classList.add('hidden');
+    const ref = 'OMK-' + Date.now().toString(36).toUpperCase().slice(-6);
+    // Spam guard: bots fill the hidden field or finish in seconds — pretend it worked
+    if ($('company_website').value || (!hadDraft && Date.now() - started < 45000)) { finish(ref); return; }
+    const answers = {};
+    S.forEach(s => s.fields.forEach(f => { answers[f.id] = A[f.id] ?? ''; }));
+    answers._ref = ref;
+    const rows = [['Reference', ref]];
+    S.forEach(s => s.fields.forEach(f => { const v = A[f.id]; rows.push([f.label, Array.isArray(v) ? v.join(', ') : (v ?? '')]); }));
+    try {
+      if (!OMK.SHEET_URL || OMK.SHEET_URL.includes('PASTE')) throw new Error('Google Sheet link not set yet');
+      // Apps Script doesn't allow reading the reply from another site, so we send and trust the network result
+      await fetch(OMK.SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ref, rows, hp: '' }) });
+      finish(ref);
+    } catch (err) {
+      $('formErr').textContent = 'Sorry — your application could not be sent. Please check your internet connection and try again. Your answers are still saved on this device.';
+      $('formErr').classList.remove('hidden'); btn.disabled = false; btn.textContent = 'Submit application';
+      console.warn(err);
+    }
+  }
+  function finish(ref) {
+    try { localStorage.removeItem(DRAFT); } catch (e) {}
+    A = {}; step = 0; $('refNo').textContent = ref; location.hash = '#done';
+    $('nextBtn').disabled = false;
+  }
+  route();
+})();
+</script>
+</body>
+</html>
