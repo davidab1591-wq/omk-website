@@ -23,7 +23,7 @@
     f.innerHTML = `<div class="wrap">
       <div><img src="logo.png" alt=""><p style="margin:10px 0 0">Ondu Motteya Kathe · Crack. Cook. Chuckle.</p><p class="kn" lang="kn" style="margin:6px 0 0;color:var(--y)">ನಮ್ಮ ನೆಲದಿಂದ. ನಮ್ಮ ಜನರ ಪ್ರೀತಿಯಿಂದ. ಜಗತ್ತಿನತ್ತ.</p><p style="margin:4px 0 0">Born in Karnataka · RR Nagar · JP Nagar, Bengaluru</p></div>
       <div><h4>Visit</h4>${LINKS.map(([u, t]) => `<a href="${u}">${t}</a>`).join('')}${FRANCHISE ? '<a href="franchise.html">Become a franchise partner</a>' : ''}</div>
-      <div><h4>Follow</h4><a href="#" data-todo>Instagram <span class="ph">add link</span></a><a href="#" data-todo>Swiggy <span class="ph">add link</span></a><a href="#" data-todo>Zomato <span class="ph">add link</span></a></div>
+      <div><h4>Follow &amp; order</h4><a href="https://www.instagram.com/ondu_motteya_kathe/" target="_blank" rel="noopener">Instagram</a><a href="https://www.swiggy.com/city/bangalore/ondu-motteya-kathe-rajarajeshwari-nagar-rest1234140" target="_blank" rel="noopener">Swiggy</a><a href="https://www.zomato.com/bangalore/ondu-motteya-kathe-kengeri-bangalore/order" target="_blank" rel="noopener">Zomato</a><a href="tel:+919591146389">RR Nagar · +91 95911 46389</a><a href="tel:+919180256780">JP Nagar · +91 91802 56780</a></div>
       <div class="copy">© ${new Date().getFullYear()} Ondu Motteya Kathe. All rights reserved.</div></div>`;
   }
 })();
