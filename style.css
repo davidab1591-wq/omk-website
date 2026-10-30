@@ -167,3 +167,24 @@ footer { padding: 22px 0 34px; color: var(--muted); font-size: 14px; text-align:
 .pills span { background: #fff; border: 1px solid var(--line); border-radius: 99px; padding: 6px 12px; font-weight: 700; font-size: 14px; }
 .reverse > :first-child { order: 2; }
 @media (max-width: 860px) { .reverse > :first-child { order: 0; } }
+
+/* ---------- Photos ---------- */
+.photo { width: 100%; height: auto; display: block; border-radius: var(--r); box-shadow: var(--shadow); background: #f3ead0; }
+.photo.tall { aspect-ratio: 4 / 5; object-fit: cover; }
+.photo.wide { aspect-ratio: 3 / 2; object-fit: cover; }
+.scroller { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(220px, 1fr); gap: 14px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x mandatory; }
+.scroller > * { scroll-snap-align: start; }
+.scroller img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 12px; display: block; }
+.menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.menu-grid img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 12px; display: block; box-shadow: var(--shadow); }
+.pets { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.pets figure { margin: 0; }
+.pets img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 12px; display: block; box-shadow: var(--shadow); }
+.pets figcaption { font-weight: 800; font-family: "Baloo 2"; font-size: 18px; margin-top: 6px; }
+.pets figcaption span { display: block; font-family: "Nunito Sans"; font-weight: 600; font-size: 13.5px; color: var(--muted); }
+.big-num { background: var(--y); border-radius: var(--r); padding: 34px 26px; text-align: center; box-shadow: var(--shadow); }
+.big-num b { display: block; font-family: "Baloo 2"; font-weight: 800; font-size: clamp(64px, 9vw, 110px); line-height: 1; }
+.big-num span { font-weight: 800; font-size: 18px; }
+.big-num p { margin: 14px 0 0; color: #3d3200; }
+@media (max-width: 1000px) { .menu-grid { grid-template-columns: 1fr 1fr; } .pets { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px) { .pets { grid-template-columns: 1fr 1fr; } .scroller { grid-auto-columns: 72%; } }
