@@ -1,103 +1,138 @@
-// OMK franchise application — questions (shared by index.html and admin.html)
+// OMK franchise application (FOFO) — questions used by franchise.html
+// Field types: text, tel, email, number, long, radio (one choice), check (several), select (dropdown), ack (all must be ticked), date
+// req: true = required.  showIf: { id, is: [...] } = only shown (and only required) when that answer is one of these.
+const YN = ['Yes', 'No'];
 window.OMK = {
   // Google Apps Script web-app link (Deploy → Web app → copy the URL ending in /exec)
   SHEET_URL: "https://script.google.com/macros/s/AKfycbw3OLD7FP9KD4Wrsn9O5peOsnhr2katxHQNV9dmzMoZ2em5HPtm0PIhswn8V8ebCDoitQ/exec",
   SECTIONS: [
     {
-      title: "Let's build the next OMK story.",
-      sub: "For committed partners who value quality, people and long-term growth.",
-      tag: "About you",
+      title: "Applicant information",
+      sub: "Tell us who you are and how we can reach you.",
+      tag: "Applicant information",
       fields: [
         { id: "full_name", label: "Full name", type: "text", req: true, auto: "name" },
         { id: "mobile", label: "Mobile number", type: "tel", req: true, auto: "tel" },
+        { id: "whatsapp", label: "WhatsApp number", type: "tel", req: true, help: "Same as mobile? Type it again." },
         { id: "email", label: "Email address", type: "email", req: true, auto: "email" },
-        { id: "current_city", label: "Current city", type: "text", req: true },
-        { id: "occupation", label: "Current occupation / business", type: "text", req: true },
-        { id: "outlet_city", label: "Proposed outlet city and locality", type: "text", req: true },
-        { id: "partners", label: "Names and roles of all proposed partners / investors", type: "long", req: true, rows: 3,
-          help: "Write “Only me” if there are no other partners or investors." },
-        { id: "q1", label: "Why do you want to become an OMK franchise partner?", type: "long", req: true,
-          help: "What attracts you to OMK specifically, and what would you want to build through this partnership beyond financial returns?" }
+        { id: "city", label: "Current residential city", type: "text", req: true },
+        { id: "age_group", label: "Age group", type: "select", req: true, options: ["18–25", "26–35", "36–45", "46–55", "56 and above"] },
+        { id: "occupation", label: "Current occupation", type: "radio", req: true,
+          options: ["Business owner", "Salaried professional", "Entrepreneur / Startup founder", "Investor", "Family business", "Other"] },
+        { id: "occupation_other", label: "Please specify your occupation", type: "text", req: true, showIf: { id: "occupation", is: ["Other"] } },
+        { id: "linkedin", label: "LinkedIn profile (if available)", type: "text" }
       ]
     },
     {
-      title: "Experience & commitment",
-      sub: "Help us understand you, your time and what you bring.",
-      tag: "Experience & commitment",
+      title: "Business and professional background",
+      sub: "Your experience in business and in food.",
+      tag: "Business background",
       fields: [
-        { id: "q2", label: "What has your experience of OMK been so far?", type: "long", req: true,
-          help: "Mention the outlets you have visited, the dishes you have tried, and something you appreciated or believe could be improved." },
-        { id: "q3", label: "Who will be accountable for the outlet's daily operations?", type: "long", req: true,
-          help: "Share their name, responsibilities and hours per week, and how existing work or business commitments will be managed." },
-        { id: "q4", label: "What relevant experience will you bring?", type: "long", req: true,
-          help: "Business, hospitality, team management or customer service. If you are new to this, tell us how you will prepare." },
-        { id: "q5", label: "Tell us about a commitment you continued through a difficult period.", type: "long", req: true,
-          help: "What happened, how long it lasted, the actions you took and the outcome." }
+        { id: "running_business", label: "Are you currently running any business?", type: "radio", req: true, options: ["Yes", "No", "Planning to start one"] },
+        { id: "business_details", label: "Mention the business name and industry.", type: "text", req: true, showIf: { id: "running_business", is: ["Yes"] } },
+        { id: "experience_years", label: "How many years of business experience do you have?", type: "radio", req: true,
+          options: ["No experience", "Less than 2 years", "2–5 years", "5–10 years", "More than 10 years"] },
+        { id: "food_experience", label: "Have you previously operated a restaurant, café, food outlet or franchise?", type: "radio", req: true, options: YN },
+        { id: "food_experience_details", label: "Provide details of the business, location and your role.", type: "long", rows: 3, req: true, showIf: { id: "food_experience", is: ["Yes"] } },
+        { id: "employees_now", label: "How many employees are currently working under you?", type: "number", req: true, help: "Enter 0 if none." },
+        { id: "managed_10_plus", label: "Have you ever managed a business with more than 10 employees?", type: "radio", req: true, options: YN },
+        { id: "reason", label: "What is your primary reason for choosing the OMK franchise?", type: "long", req: true },
+        { id: "suitable", label: "Why do you believe you would be a suitable OMK franchise partner?", type: "long", req: true },
+        { id: "competing_brands", label: "Are you currently associated with any competing food or restaurant brands?", type: "radio", req: true, options: YN },
+        { id: "competing_details", label: "Please mention the brand(s) and your association.", type: "text", req: true, showIf: { id: "competing_brands", is: ["Yes"] } }
       ]
     },
     {
-      title: "Investment readiness",
-      sub: "Restaurant ownership needs financial preparation and patience.",
-      tag: "Budget & commitment",
+      title: "Investment capacity and financial readiness",
+      sub: "The expected investment range for an OMK outlet is ₹30–50 lakh.",
+      tag: "Investment & finance",
       fields: [
-        { id: "budget", label: "Your total investment budget", type: "radio", req: true,
-          help: "Franchise fee + setup + initial operating funds.",
-          options: ["₹20–30 lakh", "₹30–40 lakh", "₹40–50 lakh", "Other"] },
-        { id: "budget_amount", label: "Please specify your investment budget (₹)", type: "text",
-          help: "Optional if you picked a range above. Required if you picked “Other”.", showIf: null },
-        { id: "funding", label: "Source of funding", type: "check", req: true,
-          options: ["Own funds", "Bank loan", "Investors / partners", "Combination of the above"] },
-        { id: "slow_months", label: "How many months can you fund a slow start?", type: "text", req: true },
-        { id: "q7", label: "How will you fund the business?", type: "long", req: true,
-          help: "Your setup budget, funding sources, any proposed borrowing and investor contributions. Separately, mention the funds reserved for operations." },
-        { id: "q8", label: "How long could you support the outlet if sales were below expectations?", type: "long", req: true,
-          help: "Your operating reserve (₹), estimated monthly shortfall and the months it would cover. Share your assumptions and how personal living expenses would be met." },
-        { id: "q9", label: "Suppose the outlet records losses during its first three to four months. What would you do next?", type: "long", req: true,
-          help: "How you would investigate, the immediate actions you would take, the support you would seek from OMK, and how you would decide whether to continue, improve or exit." },
-        { id: "q10", label: "What are your financial expectations and commitment horizon?", type: "long", req: true,
-          help: "When you expect to cover monthly costs, recover your investment and earn a personal income — and what you would do if these milestones take longer." }
+        { id: "investment", label: "What is your total investment capacity?", type: "radio", req: true, options: ["Below ₹30 lakh", "₹30–40 lakh", "₹40–50 lakh", "Above ₹50 lakh"] },
+        { id: "funding", label: "How will you arrange the investment?", type: "radio", req: true, options: ["Own funds", "Family funds", "Business partner", "Bank loan", "Combination"] },
+        { id: "ready_capital", label: "How much capital is readily available?", type: "radio", req: true,
+          options: ["Below ₹10 lakh", "₹10–20 lakh", "₹20–30 lakh", "₹30–50 lakh", "Above ₹50 lakh"] },
+        { id: "invest_3_6_months", label: "Are you financially prepared to invest within the next 3–6 months?", type: "radio", req: true, options: ["Yes", "No", "Need time"] },
+        { id: "existing_loans", label: "Do you have any existing business loans or financial commitments that may affect the investment?", type: "radio", req: true, options: YN },
+        { id: "working_capital", label: "Will you maintain additional working capital apart from the initial investment?", type: "radio", req: true, options: ["Yes", "No", "Need clarification"] },
+        { id: "launch_timeline", label: "What is your expected timeline for launching the outlet?", type: "text", req: true, help: "For example: within 3 months, by March 2027." },
+        { id: "monthly_costs_ok", label: "Are you comfortable bearing monthly operating expenses such as rent, salaries, electricity, maintenance and other outlet expenses?", type: "radio", req: true, options: YN },
+        { id: "returns_not_guaranteed", label: "Are you aware that business performance and returns are not guaranteed?", type: "radio", req: true, options: YN }
       ]
     },
     {
-      title: "Your proposed outlet",
-      sub: "Tell us where you would like to open.",
-      tag: "Location & premises",
+      title: "Property and location details",
+      sub: "OMK requires a minimum 2,000 sq. ft. outlet.",
+      tag: "Property & location",
       fields: [
-        { id: "premises", label: "What is your plan for the premises?", type: "radio", req: true,
+        { id: "property_access", label: "Do you already own or have access to a commercial property?", type: "radio", req: true,
+          options: ["Yes, owned by me", "Yes, leased", "Property identified, not finalised", "No, looking for a property"] },
+        { id: "outlet_city", label: "Which city are you planning to open the outlet in?", type: "text", req: true },
+        { id: "locality", label: "Mention the preferred locality / area.", type: "text", req: true },
+        { id: "property_size", label: "What is the available property size?", type: "radio", req: true,
+          options: ["Below 2,000 sq. ft.", "2,000–2,500 sq. ft.", "2,500–3,000 sq. ft.", "3,000–4,000 sq. ft.", "Above 4,000 sq. ft."] },
+        { id: "configuration", label: "What is the property configuration?", type: "radio", req: true, options: ["Ground floor", "First floor", "Multiple floors", "Independent building"] },
+        { id: "restaurant_suitable", label: "Is the property suitable for restaurant operations?", type: "radio", req: true, options: ["Yes", "No", "Need technical evaluation"] },
+        { id: "parking", label: "Is parking available?", type: "radio", req: true, options: ["Yes", "No", "Limited parking"] },
+        { id: "utilities", label: "Is there sufficient electricity, water supply, drainage and exhaust provision?", type: "radio", req: true, options: ["Yes", "No", "Not sure"] },
+        { id: "rent", label: "What is the expected monthly rent, if applicable?", type: "text" },
+        { id: "approvals", label: "Is the property commercially approved for the intended restaurant use, or will approvals need to be obtained?", type: "long", rows: 3, req: true },
+        { id: "photos_link", label: "Property photographs, layout or floor plan (link, if available)", type: "text",
+          help: "Share a Google Drive, Google Photos or Dropbox link with the photos / floor plan. Set it to “Anyone with the link can view”." },
+        { id: "maps_location", label: "Share the Google Maps location or property address.", type: "long", rows: 2 }
+      ]
+    },
+    {
+      title: "Daily operations and involvement",
+      sub: "OMK partners are actively involved in running their outlet.",
+      tag: "Operations & involvement",
+      fields: [
+        { id: "involvement", label: "Will you personally be involved in the daily operations of the outlet?", type: "radio", req: true,
+          options: ["Yes, full-time", "Yes, part-time", "No, I will appoint someone to manage it"] },
+        { id: "responsible_person", label: "Who will take responsibility for daily business operations?", type: "text", req: true, help: "Name and role." },
+        { id: "visit_frequency", label: "How frequently can you visit the outlet?", type: "radio", req: true, options: ["Daily", "3–4 times a week", "Weekly", "Only when required"] },
+        { id: "appoint_manager", label: "Are you willing to appoint one dedicated outlet manager as per OMK's requirements?", type: "radio", req: true, options: YN },
+        { id: "manager_reports_omk", label: "Are you comfortable with the outlet manager reporting operationally to OMK's central management team?", type: "radio", req: true, options: YN },
+        { id: "pay_manager_marketing", label: "Are you willing to pay the dedicated outlet manager's salary and marketing-related costs?", type: "radio", req: true, options: YN },
+        { id: "follow_sops", label: "Are you willing to follow OMK's prescribed operating procedures, recipes, menu, pricing and customer service standards?", type: "radio", req: true, options: YN },
+        { id: "central_monitoring", label: "Are you comfortable with central monitoring of sales, billing, inventory, wastage, expenses and daily performance?", type: "radio", req: true, options: YN },
+        { id: "inspections", label: "Will you support surprise outlet inspections and periodic operational audits?", type: "radio", req: true, options: YN },
+        { id: "reconciliation", label: "Are you willing to maintain daily cash reconciliation, inventory reconciliation and financial reporting?", type: "radio", req: true, options: YN },
+        { id: "quality_failure", label: "What would you do if your outlet consistently fails to maintain OMK's food quality and service standards?", type: "long", req: true },
+        { id: "handle_issues", label: "How would you handle employee absenteeism, customer complaints and operational losses?", type: "long", req: true }
+      ]
+    },
+    {
+      title: "Brand value and long-term commitment",
+      sub: "Protecting OMK's reputation, together.",
+      tag: "Brand & long-term commitment",
+      fields: [
+        { id: "brand_reputation", label: "What does maintaining a food brand's reputation mean to you?", type: "long", req: true },
+        { id: "same_recipes", label: "Are you willing to follow the same food recipes and portion sizes without unauthorised changes?", type: "radio", req: true, options: YN },
+        { id: "approved_suppliers", label: "Will you avoid using unapproved ingredients or suppliers?", type: "radio", req: true, options: YN },
+        { id: "policies", label: "Are you willing to follow OMK's hygiene, food safety, customer service and staff discipline policies?", type: "radio", req: true, options: YN },
+        { id: "local_marketing", label: "Are you willing to participate in local marketing activities and brand promotions?", type: "radio", req: true, options: YN },
+        { id: "quality_checks", label: "Are you comfortable with OMK having the right to conduct quality checks and operational audits?", type: "radio", req: true, options: YN },
+        { id: "association_period", label: "What is your expected association period with OMK?", type: "radio", req: true, options: ["3 years", "5 years", "7 years", "10 years", "Open to discussion"] },
+        { id: "more_outlets", label: "Are you planning to open more than one OMK outlet if the first outlet performs well?", type: "radio", req: true, options: ["Yes", "No", "Maybe in the future"] },
+        { id: "expectations", label: "What are your expectations from OMK as a franchisor?", type: "long", req: true }
+      ]
+    },
+    {
+      title: "Final declaration and confirmation",
+      sub: "Please read and tick every statement.",
+      tag: "Declaration",
+      fields: [
+        { id: "ack", label: "Declaration", type: "ack", req: true,
           options: [
-            "I own a commercial space suitable for an outlet",
-            "I own land where an outlet could be developed",
-            "I have identified a commercial space to rent",
-            "I will look for a rental space with OMK's guidance"
-          ] },
-        { id: "location", label: "Proposed location / locality", type: "text", req: true },
-        { id: "area", label: "Approximate area (sq. ft.)", type: "text", req: true, mode: "numeric" },
-        { id: "rent", label: "Expected monthly rent (if applicable)", type: "text" },
-        { id: "q6", label: "What is your proposed location, and why do you believe it suits OMK?", type: "long", req: true,
-          help: "Think about customers, competition, rent, visibility and delivery demand. Have you identified a property?" }
-      ]
-    },
-    {
-      title: "Running an OMK outlet",
-      sub: "Quality, people and accountability — every day.",
-      tag: "Operations, values & declaration",
-      fields: [
-        { id: "q11", label: "Are you prepared to complete practical training and demonstrate competence before opening?", type: "long", req: true,
-          help: "Food preparation, service, billing, stock control, cleaning and closing. Share your availability and any constraints." },
-        { id: "q12", label: "How would you respond if someone suggested a cheaper, unapproved ingredient or a recipe shortcut to improve margins or speed?", type: "long", req: true,
-          help: "Your decision, the approval process you would follow, and other ways you would address the underlying problem." },
-        { id: "q13", label: "During a busy shift, two employees are absent and a customer complains about a delayed order. How would you handle the situation?", type: "long", req: true,
-          help: "How you would support the team, communicate with customers, and protect food quality and safety." },
-        { id: "q14", label: "How would you put OMK's values into daily practice?", type: "long", req: true,
-          help: "Timely salaries, staff meals and breaks, respectful treatment of staff and delivery partners, responsible packaging, and kindness towards animals while maintaining hygiene and customer comfort." },
-        { id: "q15", label: "What does accountability in this partnership mean to you?", type: "long", req: true,
-          help: "Approved recipes, suppliers and brand standards; accurate records; audits; confidentiality; corrective actions; the support you expect from OMK; and how you would handle disagreement." },
-        { id: "ack", label: "Acknowledgement", type: "ack", req: true,
-          options: [
-            "The information provided is accurate, and all proposed partners and investors have been disclosed.",
-            "I understand that sales, profits and investment recovery timelines are not guaranteed.",
-            "I am willing to participate in interviews, practical assessment and reference or funding verification with my consent.",
-            "I understand that submitting this application does not guarantee franchise approval. Applicant selection, site approval and opening approval are separate stages."
+            "I confirm that the information provided in this application is accurate.",
+            "I understand that the minimum outlet requirement is 2,000 sq. ft.",
+            "I understand that the expected investment range is ₹30–50 lakh.",
+            "I understand that this is a FOFO franchise model.",
+            "I understand that I am responsible for daily outlet operations and operating expenses.",
+            "I agree to appoint and fund a dedicated outlet manager who will report operationally to OMK.",
+            "I understand that OMK will provide designated pre-mixes, pastes, systems, marketing support and staff training as agreed.",
+            "I understand that franchise approval is subject to verification, location assessment, financial evaluation and execution of a formal franchise agreement.",
+            "I understand that business revenue, profitability and returns are not guaranteed."
           ] },
         { id: "sign_name", label: "Applicant name", type: "text", req: true },
         { id: "sign_date", label: "Date", type: "date", req: true }

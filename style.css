@@ -189,3 +189,8 @@ footer { padding: 22px 0 34px; color: var(--muted); font-size: 14px; text-align:
 @media (max-width: 1000px) { .menu-grid { grid-template-columns: 1fr 1fr 1fr; } .pets { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 860px) { .scroller { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 42%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; scrollbar-width: none; } .scroller::-webkit-scrollbar { display: none; } }
 @media (max-width: 560px) { .pets { grid-template-columns: 1fr 1fr; } .scroller { grid-auto-columns: 70%; } .menu-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 70%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; } .menu-grid > * { scroll-snap-align: start; } }
+
+/* ---------- Franchise form: dropdown ---------- */
+.q select.sel { width: 100%; max-width: 360px; font: inherit; padding: 10px 12px; border: 1.5px solid #cfc6ae; border-radius: 10px; background: #fffdf6; color: var(--ink); }
+.q select.sel:focus { border-color: var(--ink); outline: none; }
+.nav-links a.btn[aria-current="page"] { background: var(--ink); color: var(--y); }
