@@ -233,7 +233,10 @@
     try {
       if (!OMK.SHEET_URL || OMK.SHEET_URL.includes('PASTE')) throw new Error('Google Sheet link not set yet');
       // Apps Script doesn't allow reading the reply from another site, so we send and trust the network result
-      await fetch(OMK.SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ref, rows, hp: '' }) });
+      // Same answers grouped by section, so the Sheet script can make a proper PDF of the application
+      const sections = S.map(s => ({ title: s.title, items: s.fields.filter(shown).map(f => { const v = A[f.id];
+        return [f.label, Array.isArray(v) ? v.join(f.type === 'ack' ? '\n' : ', ') : (v ?? ''), f.type]; }) }));
+      await fetch(OMK.SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ref, rows, sections, hp: '' }) });
       finish(ref);
     } catch (err) {
       $('formErr').textContent = 'Sorry — your application could not be sent. Please check your internet connection and try again. Your answers are still saved on this device.';
