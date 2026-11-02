@@ -102,7 +102,6 @@ window.OMK = {
             "I understand that the expected investment range is ₹30–50 lakh.",
             "I understand that I will own and run the outlet as an OMK franchise partner.",
             "I understand that I am responsible for daily outlet operations and operating expenses.",
-            "I agree to appoint and fund a dedicated outlet manager who will report operationally to OMK.",
             "I understand that OMK will provide designated pre-mixes, pastes, systems, marketing support and staff training as agreed.",
             "I understand that franchise approval is subject to verification, location assessment, financial evaluation and execution of a formal franchise agreement.",
             "I understand that business revenue, profitability and returns are not guaranteed."
