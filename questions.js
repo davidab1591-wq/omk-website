@@ -1,5 +1,5 @@
-// OMK franchise application (FOFO) — questions used by franchise.html
-// Field types: text, tel, email, number, long, radio (one choice), check (several), select (dropdown), ack (all must be ticked), date
+// OMK franchise application — questions used by franchise.html
+// Field types: text, tel, email, number, long, radio (one choice), check (several), select (dropdown), ack (all must be ticked), date, photos (image upload)
 // req: true = required.  showIf: { id, is: [...] } = only shown (and only required) when that answer is one of these.
 const YN = ['Yes', 'No'];
 window.OMK = {
@@ -54,9 +54,7 @@ window.OMK = {
         { id: "invest_3_6_months", label: "Are you financially prepared to invest within the next 3–6 months?", type: "radio", req: true, options: ["Yes", "No", "Need time"] },
         { id: "existing_loans", label: "Do you have any existing business loans or financial commitments that may affect the investment?", type: "radio", req: true, options: YN },
         { id: "working_capital", label: "Will you maintain additional working capital apart from the initial investment?", type: "radio", req: true, options: ["Yes", "No", "Need clarification"] },
-        { id: "launch_timeline", label: "What is your expected timeline for launching the outlet?", type: "text", req: true, help: "For example: within 3 months, by March 2027." },
-        { id: "monthly_costs_ok", label: "Are you comfortable bearing monthly operating expenses such as rent, salaries, electricity, maintenance and other outlet expenses?", type: "radio", req: true, options: YN },
-        { id: "returns_not_guaranteed", label: "Are you aware that business performance and returns are not guaranteed?", type: "radio", req: true, options: YN }
+        { id: "launch_timeline", label: "What is your expected timeline for launching the outlet?", type: "text", req: true, help: "For example: within 3 months, by March 2027." }
       ]
     },
     {
@@ -69,52 +67,27 @@ window.OMK = {
         { id: "outlet_city", label: "Which city are you planning to open the outlet in?", type: "text", req: true },
         { id: "locality", label: "Mention the preferred locality / area.", type: "text", req: true },
         { id: "property_size", label: "What is the available property size?", type: "radio", req: true,
-          options: ["Below 2,000 sq. ft.", "2,000–2,500 sq. ft.", "2,500–3,000 sq. ft.", "3,000–4,000 sq. ft.", "Above 4,000 sq. ft."] },
-        { id: "configuration", label: "What is the property configuration?", type: "radio", req: true, options: ["Ground floor", "First floor", "Multiple floors", "Independent building"] },
-        { id: "restaurant_suitable", label: "Is the property suitable for restaurant operations?", type: "radio", req: true, options: ["Yes", "No", "Need technical evaluation"] },
-        { id: "parking", label: "Is parking available?", type: "radio", req: true, options: ["Yes", "No", "Limited parking"] },
-        { id: "utilities", label: "Is there sufficient electricity, water supply, drainage and exhaust provision?", type: "radio", req: true, options: ["Yes", "No", "Not sure"] },
-        { id: "rent", label: "What is the expected monthly rent, if applicable?", type: "text" },
-        { id: "approvals", label: "Is the property commercially approved for the intended restaurant use, or will approvals need to be obtained?", type: "long", rows: 3, req: true },
-        { id: "photos_link", label: "Property photographs, layout or floor plan (link, if available)", type: "text",
-          help: "Share a Google Drive, Google Photos or Dropbox link with the photos / floor plan. Set it to “Anyone with the link can view”." },
-        { id: "maps_location", label: "Share the Google Maps location or property address.", type: "long", rows: 2 }
+          options: ["Below 2,000 sq. ft.", "2,000–2,500 sq. ft.", "2,500–3,000 sq. ft.", "3,000–4,000 sq. ft.", "Above 4,000 sq. ft."] , showIf: { id: "property_access", is: ["Yes, owned by me", "Yes, leased"] } },
+        { id: "configuration", label: "What is the property configuration?", type: "radio", req: true, options: ["Ground floor", "First floor", "Multiple floors", "Independent building"] , showIf: { id: "property_access", is: ["Yes, owned by me", "Yes, leased"] } },
+        { id: "restaurant_suitable", label: "Is the property suitable for restaurant operations?", type: "radio", req: true, options: ["Yes", "No", "Need technical evaluation"] , showIf: { id: "property_access", is: ["Yes, owned by me", "Yes, leased"] } },
+        { id: "parking", label: "Is parking available?", type: "radio", req: true, options: ["Yes", "No", "Limited parking"] , showIf: { id: "property_access", is: ["Yes, owned by me", "Yes, leased"] } },
+        { id: "utilities", label: "Is there sufficient electricity, water supply, drainage and exhaust provision?", type: "radio", req: true, options: ["Yes", "No", "Not sure"] , showIf: { id: "property_access", is: ["Yes, owned by me", "Yes, leased"] } },
+        { id: "rent", label: "What is the expected monthly rent, if applicable?", type: "text" , showIf: { id: "property_access", is: ["Yes, owned by me", "Yes, leased"] } },
+        { id: "approvals", label: "Is the property commercially approved for the intended restaurant use, or will approvals need to be obtained?", type: "long", rows: 3, req: true , showIf: { id: "property_access", is: ["Yes, owned by me", "Yes, leased"] } },
+        { id: "property_photos", label: "Upload photos of the property", type: "photos", req: true, max: 6,
+          help: "Add 1–6 photos: the front / road view, inside the space and the kitchen area. You can take them with your phone camera.", showIf: { id: "property_access", is: ["Yes, owned by me", "Yes, leased"] } },
+        { id: "photos_link", label: "Floor plan or more photos (link, optional)", type: "text",
+          help: "If you have a floor plan or more photos, share a Google Drive / Google Photos link set to “Anyone with the link can view”.", showIf: { id: "property_access", is: ["Yes, owned by me", "Yes, leased"] } },
+        { id: "maps_location", label: "Share the Google Maps location or property address.", type: "long", rows: 2 , showIf: { id: "property_access", is: ["Yes, owned by me", "Yes, leased"] } }
       ]
     },
     {
-      title: "Daily operations and involvement",
-      sub: "OMK partners are actively involved in running their outlet.",
-      tag: "Operations & involvement",
+      title: "Long-term commitment",
+      sub: "Your plans with OMK.",
+      tag: "Long-term commitment",
       fields: [
-        { id: "involvement", label: "Will you personally be involved in the daily operations of the outlet?", type: "radio", req: true,
-          options: ["Yes, full-time", "Yes, part-time", "No, I will appoint someone to manage it"] },
-        { id: "responsible_person", label: "Who will take responsibility for daily business operations?", type: "text", req: true, help: "Name and role." },
-        { id: "visit_frequency", label: "How frequently can you visit the outlet?", type: "radio", req: true, options: ["Daily", "3–4 times a week", "Weekly", "Only when required"] },
-        { id: "appoint_manager", label: "Are you willing to appoint one dedicated outlet manager as per OMK's requirements?", type: "radio", req: true, options: YN },
-        { id: "manager_reports_omk", label: "Are you comfortable with the outlet manager reporting operationally to OMK's central management team?", type: "radio", req: true, options: YN },
-        { id: "pay_manager_marketing", label: "Are you willing to pay the dedicated outlet manager's salary and marketing-related costs?", type: "radio", req: true, options: YN },
-        { id: "follow_sops", label: "Are you willing to follow OMK's prescribed operating procedures, recipes, menu, pricing and customer service standards?", type: "radio", req: true, options: YN },
-        { id: "central_monitoring", label: "Are you comfortable with central monitoring of sales, billing, inventory, wastage, expenses and daily performance?", type: "radio", req: true, options: YN },
-        { id: "inspections", label: "Will you support surprise outlet inspections and periodic operational audits?", type: "radio", req: true, options: YN },
-        { id: "reconciliation", label: "Are you willing to maintain daily cash reconciliation, inventory reconciliation and financial reporting?", type: "radio", req: true, options: YN },
-        { id: "quality_failure", label: "What would you do if your outlet consistently fails to maintain OMK's food quality and service standards?", type: "long", req: true },
-        { id: "handle_issues", label: "How would you handle employee absenteeism, customer complaints and operational losses?", type: "long", req: true }
-      ]
-    },
-    {
-      title: "Brand value and long-term commitment",
-      sub: "Protecting OMK's reputation, together.",
-      tag: "Brand & long-term commitment",
-      fields: [
-        { id: "brand_reputation", label: "What does maintaining a food brand's reputation mean to you?", type: "long", req: true },
-        { id: "same_recipes", label: "Are you willing to follow the same food recipes and portion sizes without unauthorised changes?", type: "radio", req: true, options: YN },
-        { id: "approved_suppliers", label: "Will you avoid using unapproved ingredients or suppliers?", type: "radio", req: true, options: YN },
-        { id: "policies", label: "Are you willing to follow OMK's hygiene, food safety, customer service and staff discipline policies?", type: "radio", req: true, options: YN },
-        { id: "local_marketing", label: "Are you willing to participate in local marketing activities and brand promotions?", type: "radio", req: true, options: YN },
-        { id: "quality_checks", label: "Are you comfortable with OMK having the right to conduct quality checks and operational audits?", type: "radio", req: true, options: YN },
         { id: "association_period", label: "What is your expected association period with OMK?", type: "radio", req: true, options: ["3 years", "5 years", "7 years", "10 years", "Open to discussion"] },
-        { id: "more_outlets", label: "Are you planning to open more than one OMK outlet if the first outlet performs well?", type: "radio", req: true, options: ["Yes", "No", "Maybe in the future"] },
-        { id: "expectations", label: "What are your expectations from OMK as a franchisor?", type: "long", req: true }
+        { id: "more_outlets", label: "Are you planning to open more than one OMK outlet if the first outlet performs well?", type: "radio", req: true, options: ["Yes", "No", "Maybe in the future"] }
       ]
     },
     {
@@ -127,7 +100,7 @@ window.OMK = {
             "I confirm that the information provided in this application is accurate.",
             "I understand that the minimum outlet requirement is 2,000 sq. ft.",
             "I understand that the expected investment range is ₹30–50 lakh.",
-            "I understand that this is a FOFO franchise model.",
+            "I understand that I will own and run the outlet as an OMK franchise partner.",
             "I understand that I am responsible for daily outlet operations and operating expenses.",
             "I agree to appoint and fund a dedicated outlet manager who will report operationally to OMK.",
             "I understand that OMK will provide designated pre-mixes, pastes, systems, marketing support and staff training as agreed.",
