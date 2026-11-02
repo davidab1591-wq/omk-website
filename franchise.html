@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Franchise opportunity (FOFO) · Ondu Motteya Kathe</title>
+<title>Franchise opportunity · Ondu Motteya Kathe</title>
 <meta name="description" content="Apply to become an Ondu Motteya Kathe (OMK) franchise partner. Crack · Cook · Chuckle.">
 <meta property="og:title" content="Become an OMK franchise partner">
 <meta property="og:description" content="Building a business. Carrying forward a story. Apply to open an Ondu Motteya Kathe outlet.">
@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Noto+Sans+Kannada:wght@500;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 <header id="siteHeader" class="bar"></header>
@@ -26,12 +26,11 @@
       <div>
         <span class="kicker">Franchise opportunity</span>
         <h1>Ondu Motteya Kathe – Franchise Opportunity</h1>
-        <p class="tag">FOFO model: Franchise Owned, Franchise Operated.</p>
-        <p>OMK is inviting applications from serious business owners and investors who are interested in operating an OMK outlet under our FOFO (Franchise Owned, Franchise Operated) model.</p>
+        <p>OMK is inviting applications from serious business owners and investors who are interested in owning and running an OMK outlet.</p>
         <p>We are looking for partners who can maintain OMK's brand identity, food quality, customer experience and operational standards.</p>
         <div class="cta">
           <a class="btn btn-dark" href="#apply">Start your application →</a>
-          <span class="small">7 sections · about 20–30 minutes · your answers are saved on this device as you go</span>
+          <span class="small">6 sections · about 15–20 minutes · your answers are saved on this device as you go</span>
         </div>
       </div>
       <img class="logo" src="logo.png" alt="">
@@ -51,7 +50,7 @@
         </ul>
       </div>
       <div>
-        <span class="eyebrow">OMK – FOFO operating structure</span>
+        <span class="eyebrow">OMK franchise support</span>
         <h2 style="font-size:clamp(26px,3.2vw,34px)">What OMK provides</h2>
         <ul class="ticks">
           <li>OMK brand name, identity and brand guidelines.</li>
@@ -76,7 +75,7 @@
         <li><b>Verification</b><span>We review your application and verify the details shared.</span></li>
         <li><b>Location assessment</b><span>We assess the proposed property and locality.</span></li>
         <li><b>Financial evaluation</b><span>We confirm investment capacity and working capital.</span></li>
-        <li><b>Franchise agreement</b><span>A formal FOFO franchise agreement is signed.</span></li>
+        <li><b>Franchise agreement</b><span>A formal franchise agreement is signed.</span></li>
       </ol>
     </div>
   </section>
@@ -162,6 +161,9 @@
       const t = f.type === 'radio' ? 'radio' : 'checkbox', sel = Array.isArray(v) ? v : (v ? [v] : []);
       input = `<div role="group" aria-labelledby="l_${f.id}">` + f.options.map((o, i) =>
         `<label class="opt"><input type="${t}" name="${f.id}" value="${esc(o)}" ${sel.includes(o) ? 'checked' : ''}><span>${esc(o)}</span></label>`).join('') + '</div>';
+    } else if (f.type === 'photos') {
+      input = `<label class="photo-add" for="f_${f.id}">📷 Add photos</label><input type="file" id="f_${f.id}" accept="image/*" multiple class="photo-input">
+        <div class="thumbs" id="t_${f.id}"></div><div class="cnt pc" id="c_${f.id}"></div>`;
     } else if (f.type === 'select') {
       input = `<select id="f_${f.id}" class="sel"><option value="">Choose</option>${f.options.map(o => `<option ${v === o ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select>`;
     } else {
@@ -177,7 +179,41 @@
   function read(f) {
     if (f.type === 'radio') { const x = document.querySelector(`input[name="${f.id}"]:checked`); return x ? x.value : ''; }
     if (f.type === 'check' || f.type === 'ack') return [...document.querySelectorAll(`input[name="${f.id}"]:checked`)].map(x => x.value);
+    if (f.type === 'photos') { const n = (PH[f.id] || []).length; return n ? `${n} photo${n === 1 ? '' : 's'}` : ''; }
     const el = $('f_' + f.id); return el ? el.value.trim() : '';
+  }
+  // ---- property photos: shrunk on the phone (max 1600 px, JPEG) and sent with the application ----
+  const PH = {};
+  function shrink(file) {
+    return new Promise((ok, fail) => {
+      const img = new Image(), url = URL.createObjectURL(file);
+      img.onload = () => { const k = Math.min(1, 1600 / Math.max(img.width, img.height));
+        const c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url); ok(c.toDataURL('image/jpeg', 0.8)); };
+      img.onerror = () => { URL.revokeObjectURL(url); fail(new Error('not an image')); };
+      img.src = url;
+    });
+  }
+  function drawThumbs(f) {
+    const list = PH[f.id] || [];
+    $('t_' + f.id).innerHTML = list.map((p, i) => `<div class="thumb"><img src="${p}" alt="Photo ${i + 1}"><button type="button" data-i="${i}" aria-label="Remove photo ${i + 1}">✕</button></div>`).join('');
+    $('c_' + f.id).textContent = list.length ? `${list.length} of ${f.max || 6} photos added` : '';
+  }
+  function photoField(f, after) {
+    const inp = $('f_' + f.id); if (!inp) return;
+    drawThumbs(f);
+    inp.addEventListener('change', async (e) => {
+      e.stopPropagation();
+      const room = (f.max || 6) - (PH[f.id] || []).length;
+      const files = [...inp.files].filter(x => /^image\//.test(x.type)).slice(0, Math.max(0, room));
+      $('c_' + f.id).textContent = files.length ? 'Adding photos…' : `You can add up to ${f.max || 6} photos.`;
+      for (const file of files) { try { (PH[f.id] ||= []).push(await shrink(file)); } catch (err) {} }
+      inp.value = ''; drawThumbs(f); after();
+    });
+    $('t_' + f.id).addEventListener('click', (e) => {
+      const b = e.target.closest('button[data-i]'); if (!b) return;
+      PH[f.id].splice(Number(b.dataset.i), 1); drawThumbs(f); after();
+    });
   }
   function renderStep() {
     const sec = S[step];
@@ -191,6 +227,7 @@
     sec.fields.forEach(f => {
       const upd = () => { A[f.id] = read(f); saveDraft(); const q = $('q_' + f.id); if (q.classList.contains('err')) check(f); if (f.type === 'long') count(f);
         sec.fields.forEach(g => { if (g.showIf && g.showIf.id === f.id) $('q_' + g.id).classList.toggle('hidden', !shown(g)); }); };
+      if (f.type === 'photos') { photoField(f, upd); return; }
       $('q_' + f.id).addEventListener('input', upd); $('q_' + f.id).addEventListener('change', upd);
       if (f.type === 'long') count(f);
     });
@@ -200,7 +237,7 @@
     const v = read(f), q = $('q_' + f.id), e = $('e_' + f.id); let msg = '';
     if (!shown(f)) { q.classList.remove('err'); return true; }
     const empty = Array.isArray(v) ? v.length === 0 : !v;
-    if (f.req && empty) msg = 'This question is required.';
+    if (f.req && empty) msg = f.type === 'photos' ? 'Please add at least one photo of the property.' : 'This question is required.';
     if (!msg && f.type === 'ack' && v.length < f.options.length) msg = 'Please tick every statement to continue.';
     if (!msg && (f.id === 'mobile' || f.id === 'whatsapp') && v && v.replace(/\D/g, '').length < 10) msg = 'Please enter a valid 10-digit number.';
     if (!msg && f.type === 'number' && v && !/^\d{1,6}$/.test(v)) msg = 'Please enter a number (e.g. 0, 5, 25).';
@@ -236,7 +273,8 @@
       // Same answers grouped by section, so the Sheet script can make a proper PDF of the application
       const sections = S.map(s => ({ title: s.title, items: s.fields.filter(shown).map(f => { const v = A[f.id];
         return [f.label, Array.isArray(v) ? v.join(f.type === 'ack' ? '\n' : ', ') : (v ?? ''), f.type]; }) }));
-      await fetch(OMK.SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ref, rows, sections, hp: '' }) });
+      await fetch(OMK.SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ref, rows, sections, hp: '',
+        photos: S.flatMap(s => s.fields.filter(f => f.type === 'photos' && shown(f)).flatMap(f => (PH[f.id] || []).map(d => ({ field: f.label, type: 'image/jpeg', data: d.split(',')[1] })))) }) });
       finish(ref);
     } catch (err) {
       $('formErr').textContent = 'Sorry — your application could not be sent. Please check your internet connection and try again. Your answers are still saved on this device.';
